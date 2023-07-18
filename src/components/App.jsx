@@ -34,14 +34,13 @@ export class App extends Component {
     }
 
     const isIncludeName = this.state.contacts.find(contact =>
-      contact.name.toLowerCase().includes(data.name.toLowerCase())
+      contact.name.toLowerCase() === (data.name.toLowerCase())
     );
 
     const isIncludeNumber = this.state.contacts.find(contact =>
       contact.number
         .split('-')
-        .join('')
-        .includes(data.number.split('-').join(''))
+        .join('') === (data.number.split('-').join(''))
     );
 
     if (isIncludeName) {
@@ -63,9 +62,6 @@ export class App extends Component {
     const { contacts } = this.state;
 
     this.setState({ contacts: [...contacts, newContact] });
-    console.log(contacts);
-    // this.setState({ name: '' });
-    // this.setState({ number: '' });
   };
 
   onFiltredContacts = () => {
@@ -85,7 +81,17 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
+      <div
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          fontSize: 24,
+          color: '#010101',
+        }}
+      >
         <h2>Phonebook</h2>
         <Form onFormSubmit={this.formSubmitHandler} />
         <h2>Contacts</h2>

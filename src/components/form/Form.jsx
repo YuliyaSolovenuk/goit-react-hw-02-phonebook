@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Component } from 'react';
+import css from './Form.module.css'
 
 export class Form extends Component {
   state = {
@@ -29,20 +30,21 @@ export class Form extends Component {
     const { name, number } = this.state;
     const isFormEmpty = !name || !number;
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
+      <div >
+        <form onSubmit={this.handleSubmit} className={css.formCover}>
+          <label className={css.formLabel}>
             Name
-            <input
+            <input className={css.formInput}
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               onChange={this.handleChange}
               required
-            />
+            /></label>
+            <label className={css.formLabel}>
             Number
-            <input
+            <input className={css.formInput}
               type="tel"
               name="number"
               pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
@@ -50,10 +52,10 @@ export class Form extends Component {
               onChange={this.handleChange}
               required
             />
-            <button type="submit" disabled={isFormEmpty}>
+          </label>
+            <button className={css.formBtn} type="submit" disabled={isFormEmpty}>
               Add contact
             </button>
-          </label>
         </form>
       </div>
     );
