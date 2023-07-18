@@ -29,18 +29,12 @@ export class App extends Component {
   };
 
   formSubmitHandler = data => {
-    if (data.name.trim() === '') {
-      return;
-    }
-
-    const isIncludeName = this.state.contacts.find(contact =>
-      contact.name.toLowerCase() === (data.name.toLowerCase())
+    const isIncludeName = this.state.contacts.find(
+      contact => contact.name.toLowerCase() === data.name.toLowerCase()
     );
 
-    const isIncludeNumber = this.state.contacts.find(contact =>
-      contact.number
-        .split('-')
-        .join('') === (data.number.split('-').join(''))
+    const isIncludeNumber = this.state.contacts.find(
+      contact => contact.number === data.number
     );
 
     if (isIncludeName) {
@@ -59,24 +53,28 @@ export class App extends Component {
       number: data.number.trim(),
     };
 
-    const { contacts } = this.state;
+    //const { contacts } = this.state;
 
-    this.setState({ contacts: [...contacts, newContact] });
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+    }));
   };
 
   onFiltredContacts = () => {
     const { contacts, filter } = this.state;
-    const filterEl = contacts.filter(contact => {
+    return contacts.filter(contact => {
       return contact.name.toLowerCase().includes(filter.toLowerCase());
     });
-    return filterEl;
+    
   };
 
   deleteContact = id => {
-    const updatedContacts = this.state.contacts.filter(
-      contact => contact.id !== id
-    );
-    this.setState({ contacts: updatedContacts });
+    this.setState(prevState => {
+      const updatedContacts = prevState.contacts.filter(
+        contact => contact.id !== id
+      );
+      return { contacts: updatedContacts };
+    });
   };
 
   render() {
